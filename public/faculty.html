@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Faculty Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans antialiased">
+
+<!-- Sidebar -->
+<aside class="w-64 h-screen bg-white shadow-md fixed">
+      <div class="p-4 border-b">
+        <div class="flex items-center space-x-3">
+          <img src="Photo1.jpg" class="w-10 h-10 rounded-full" alt="Logo">
+          <h1 class="text-xl font-bold text-gray-800 leading-tight">
+            DS & AIML<br>Learning<br>Management<br>System
+          </h1>
+        </div>
+      </div>
+      <nav class="p-4 space-y-1">
+        <a href="index.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="faculty.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+          <span>Faculty</span>
+        </a>
+        <a href="students.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/></svg>
+          <span>Students</span>
+        </a>
+        <a href="academics.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 1.586l-4 4v12.828l4-4V1.586zM3.707 3.293A1 1 0 002 4v10a1 1 0 00.293.707L6 18.414V5.586L3.707 3.293zM17.707 5.293L14 1.586v12.828l2.293 2.293A1 1 0 0018 16V6a1 1 0 00-.293-.707z" clip-rule="evenodd"/></svg>
+          <span>Academics</span>
+        </a>
+        <a href="labs.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>
+          <span>Labs</span>
+        </a>
+        <a href="attendance.html" class="sidebar-item flex items-center space-x-3 py-2 px-3 rounded-lg text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>
+          <span>Attendance</span>
+        </a>
+        <a href="projects.html" class="sidebar-item active flex items-center space-x-3 py-2 px-3 rounded-lg bg-indigo-100 text-indigo-700 font-medium relative">
+          <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+          <span>Projects</span>
+        </a>
+      </nav>
+    </aside>
+
+<!-- Main content -->
+<main class="ml-64 p-8">
+  <header class="mb-6">
+    <h2 class="text-3xl font-bold">Faculty Members</h2>
+    <p class="text-gray-600">Manage your department faculty information</p>
+  </header>
+
+  <div class="flex items-center mb-6">
+    <img src="Mic.jpg" alt="Admin User" class="w-16 h-16 rounded-full mr-4 object-cover" />
+    <div>
+      <h3 class="text-xl font-semibold">Admin User</h3>
+    </div>
+  </div>
+
+  <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white shadow rounded-lg p-4">
+      <h4 class="text-sm text-gray-500 mb-1">Total Faculty</h4>
+      <p class="text-xl font-bold">18</p>
+      <span class="text-sm text-green-500">+2 new members</span>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4">
+      <h4 class="text-sm text-gray-500 mb-1">Active Research Projects</h4>
+      <p class="text-xl font-bold">12</p>
+      <span class="text-sm text-gray-400">Current semester</span>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4">
+      <h4 class="text-sm text-gray-500 mb-1">Faculty with Publications</h4>
+      <p class="text-xl font-bold">10</p>
+      <span class="text-sm text-gray-400">Top contributors</span>
+    </div>
+    <div class="bg-white shadow rounded-lg p-4">
+      <h4 class="text-sm text-gray-500 mb-1">Lab Utilization</h4>
+      <p class="text-xl font-bold">82%</p>
+      <span class="text-sm text-gray-400">Optimal usage</span>
+    </div>
+  </section>
+
+  <section class="bg-white shadow rounded-lg p-6 mb-8">
+    <h3 class="text-xl font-semibold mb-4">Faculty List</h3>
+    <div class="overflow-auto">
+      <table class="min-w-full text-left text-sm border">
+        <thead class="bg-gray-100 font-semibold">
+          <tr>
+            <th class="p-2 border">NAME</th>
+            <th class="p-2 border">DESIGNATION</th>
+            <th class="p-2 border">RESEARCH AREA</th>
+            <th class="p-2 border">EMAIL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t">
+            <td class="p-2 border">Dr. Pradeep</td>
+            <td class="p-2 border">Professor</td>
+            <td class="p-2 border">Data Engineering and Visualisation</td>
+            <td class="p-2 border">pradeep.kumar@christuniversity.in</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-2 border">Dr. Babu Kumar</td>
+            <td class="p-2 border">Professor</td>
+            <td class="p-2 border">Cloud Computing</td>
+            <td class="p-2 border">babu.kumar@christuniversity.in</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-2 border">Dr. Rekha V</td>
+            <td class="p-2 border">Professor</td>
+            <td class="p-2 border">Internet and Web Programming</td>
+            <td class="p-2 border">rekha.v@christuniversity.in</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-2 border">Dr. Mary Jasmine</td>
+            <td class="p-2 border">Professor</td>
+            <td class="p-2 border">Machine Learning and Deep Learning</td>
+            <td class="p-2 border">mary.jasmine@christuniversity.in</td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-2 border">Dr. Alpha</td>
+            <td class="p-2 border">Associate Professor</td>
+            <td class="p-2 border">Design and Analysis of Algorithms</td>
+            <td class="p-2 border">alpha@christuniversity.in</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-3 text-right">
+      <a href="#" class="text-indigo-600 hover:underline text-sm">View All Faculty</a>
+    </div>
+  </section>
+
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white shadow rounded-lg p-6">
+      <h3 class="text-xl font-semibold mb-4">Announcements</h3>
+      <ul class="space-y-2 text-gray-700">
+        <li>📢 <strong>Guest Lecture on Advanced NLP</strong><br><small>Tomorrow, 11 AM in Lab 3</small></li>
+        <li>📌 <strong>Project Submission Deadline</strong><br><small>Friday, March 10th @ 11:59 PM</small></li>
+        <li>🏭 <strong>Industrial Visit</strong><br><small>Sign up by March 15th</small></li>
+      </ul>
+      <div class="mt-3 text-right">
+        <a href="#" class="text-indigo-600 hover:underline text-sm">View All Announcements</a>
+      </div>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6">
+      <h3 class="text-xl font-semibold mb-4">Upcoming Events</h3>
+      <div class="overflow-auto">
+        <table class="min-w-full text-left text-sm border">
+          <thead class="bg-gray-100 font-semibold">
+            <tr>
+              <th class="p-2 border">EVENT</th>
+              <th class="p-2 border">DATE</th>
+              <th class="p-2 border">LOCATION</th>
+              <th class="p-2 border">ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-2 border">Mid Term Exam - ML</td>
+              <td class="p-2 border">Mar 15, 2023<br><small>9:00 AM - 12:00 PM</small></td>
+              <td class="p-2 border">Exam Hall 2</td>
+              <td class="p-2 border text-indigo-600"><a href="#">Download Hall Ticket</a></td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-2 border">Guest Lecture from Industry</td>
+              <td class="p-2 border">Mar 21, 2023<br><small>2:00 PM - 4:00 PM</small></td>
+              <td class="p-2 border">Seminar Hall</td>
+              <td class="p-2 border text-indigo-600"><a href="#">Register Now</a></td>
+            </tr>
+            <tr class="border-t">
+              <td class="p-2 border">Project Proposal Submission</td>
+              <td class="p-2 border">Mar 28, 2023<br><small>11:59 PM</small></td>
+              <td class="p-2 border">Online Portal</td>
+              <td class="p-2 border text-indigo-600"><a href="#">Submit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+</body>
+</html>

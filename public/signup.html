@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - DS & AIML Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #dbeafe 0%, #f3f4f6 100%);
+      font-family: 'Inter', sans-serif;
+    }
+    input:focus {
+      box-shadow: 0 0 0 3px rgb(99 102 241 / 0.5);
+      outline: none;
+      transition: box-shadow 0.2s ease-in-out;
+    }
+    button {
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #7dd153;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-6">
+  <div class="bg-white rounded-xl shadow-lg max-w-md w-full p-8">
+    <header class="mb-8 text-center">
+      <div class="flex justify-center mb-2">
+        <div class="rounded-full bg-blue-900 text-white p-3 flex items-center justify-center w-14 h-14">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+            <path d="M12 2L4 5v6c0 5 4 9 8 11 4-2 8-6 8-11V5l-8-3z" fill="#1e40af"/>
+            <text x="12" y="15" fill="white" font-size="5" font-weight="700" font-family="Arial" text-anchor="middle" dominant-baseline="middle">DS</text>
+          </svg>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900">Create Account</h1>
+      <p class="text-gray-600 mt-1">Join DS & AIML Portal</p>
+    </header>
+
+    <form id="signupForm" class="space-y-4" onsubmit="handleSignup(event)">
+      <div>
+        <label for="firstName" class="block mb-2 text-sm font-medium text-gray-700">First Name</label>
+        <input type="text" id="firstName" name="firstName" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Enter your first name" />
+      </div>
+
+      <div>
+        <label for="lastName" class="block mb-2 text-sm font-medium text-gray-700">Last Name</label>
+        <input type="text" id="lastName" name="lastName" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Enter your last name" />
+      </div>
+
+      <div>
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-700">Phone Number</label>
+        <input type="text" id="phone" name="phone" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Enter your phone number" />
+      </div>
+
+      <div>
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email Address</label>
+        <input type="email" id="email" name="email" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Enter your email address" />
+      </div>
+
+      <div>
+        <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
+        <input type="text" id="username" name="username" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Choose a username" />
+      </div>
+
+      <div>
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+        <input type="password" id="password" name="password" required class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400" placeholder="Create a password" />
+      </div>
+
+      <button type="submit" class="w-full bg-indigo-600 text-white font-semibold rounded-md px-4 py-2 hover:bg-indigo-700">
+        Sign Up
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-500">
+      Already have an account?  
+      <a href="login.html" class="text-indigo-600 font-semibold hover:underline">Log In</a>
+    </p>
+  </div>
+
+  <script>
+    async function handleSignup(event) {
+      event.preventDefault();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('http://localhost:3000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ firstName, lastName, phone, email, username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Signup successful! Redirecting to login...');
+          window.location.href = 'login.html';
+        } else {
+          alert(data.message || 'Signup failed. Try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Try again later.');
+      }
+    }
+  </script>
+</body>
+</html>

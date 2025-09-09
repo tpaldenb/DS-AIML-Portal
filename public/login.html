@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - DS & AIML Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #dbeafe 0%, #f3f4f6 100%);
+      font-family: 'Inter', sans-serif;
+    }
+    input:focus {
+      box-shadow: 0 0 0 3px rgb(99 102 241 / 0.5);
+      outline: none;
+      transition: box-shadow 0.2s ease-in-out;
+    }
+    button {
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #7dd153;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-6">
+  <div class="bg-white rounded-xl shadow-lg max-w-md w-full p-8">
+    <header class="mb-8 text-center">
+      <div class="flex justify-center mb-2">
+        <div class="rounded-full bg-blue-900 text-white p-3 flex items-center justify-center w-14 h-14">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="36" height="36" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+            <path d="M12 2L4 5v6c0 5 4 9 8 11 4-2 8-6 8-11V5l-8-3z" fill="#1e40af"/>
+            <text x="12" y="15" fill="white" font-size="5" font-weight="700" font-family="Arial" text-anchor="middle" dominant-baseline="middle">DS</text>
+          </svg>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-900">DS & AIML Portal</h1>
+      <p class="text-gray-600 mt-1">Department Dashboard Login</p>
+    </header>
+
+    <form id="loginForm" class="space-y-6" onsubmit="handleLogin(event)">
+      <div>
+        <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          required
+          autocomplete="username"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400"
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          autocomplete="current-password"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="flex items-center justify-between">
+        <label class="inline-flex items-center text-sm text-gray-600">
+          <input type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+          <span class="ml-2">Remember me</span>
+        </label>
+        <a href="#" class="text-indigo-600 text-sm hover:underline">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="w-full bg-indigo-600 text-white font-semibold rounded-md px-4 py-2 hover:bg-indigo-700">
+        Log In
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-500">
+      Don't have an account?  
+      <a href="signup.html" class="text-indigo-600 font-semibold hover:underline">Sign Up</a>
+    </p>
+  </div>
+
+  <script>
+    async function handleLogin(event) {
+      event.preventDefault();
+      const username = event.target.username.value.trim();
+      const password = event.target.password.value;
+
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Login successful! Redirecting...');
+          window.location.href = 'index.html'; // Change to dashboard/home
+        } else {
+          alert(data.message || 'Invalid credentials.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong. Try again later.');
+      }
+    }
+  </script>
+</body>
+</html>
