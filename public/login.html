@@ -91,7 +91,7 @@
       const password = event.target.password.value;
 
       try {
-        const response = await fetch('http://localhost:3000/login', {
+        const response = await fetch('http://localhost:5001/auth/login', {  // ✅ Match your backend route
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -99,11 +99,20 @@
           body: JSON.stringify({ username, password })
         });
 
+        // ✅ Handle non-OK response
+        if (!response.ok) {
+          const errorData = await response.json();
+          alert(errorData.message || 'Login failed.');
+          return;
+        }
+
         const data = await response.json();
 
-        if (data.success) {
+        if (data.token) {
+          // ✅ Save JWT token for session
+          localStorage.setItem('authToken', data.token);
           alert('Login successful! Redirecting...');
-          window.location.href = 'index.html'; // Change to dashboard/home
+          window.location.href = 'index.html'; // ✅ Redirect to dashboard/home
         } else {
           alert(data.message || 'Invalid credentials.');
         }

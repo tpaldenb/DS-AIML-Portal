@@ -74,52 +74,131 @@
       </nav>
     </aside>
 
-    <!-- Main Content Placeholder -->
+    <!-- Main Content -->
     <main class="flex-1 ml-64 p-6">
-  <header class="mb-6">
-    <h2 class="text-2xl font-semibold text-gray-800">Projects</h2>
-    <p class="text-sm text-gray-600">Project submission and evaluation details</p>
-  </header>
+      <header class="mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800">Projects</h2>
+        <p class="text-sm text-gray-600">Project submission and evaluation details</p>
+      </header>
 
-  <div class="bg-white rounded-lg shadow overflow-hidden">
-    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-      <h3 class="text-lg font-semibold text-gray-900">Ongoing Projects</h3>
-      <button class="px-4 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700">Add New</button>
-    </div>
-    <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Name</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Domain</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guide</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">AI Chatbot</td>
-            <td class="px-6 py-4 whitespace-nowrap">NLP</td>
-            <td class="px-6 py-4 whitespace-nowrap">Dr. Mehta</td>
-            <td class="px-6 py-4 whitespace-nowrap text-green-600 font-medium">In Progress</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">Smart Attendance</td>
-            <td class="px-6 py-4 whitespace-nowrap">CV</td>
-            <td class="px-6 py-4 whitespace-nowrap">Prof. Sharma</td>
-            <td class="px-6 py-4 whitespace-nowrap text-yellow-500 font-medium">Review</td>
-          </tr>
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap">Health Dashboard</td>
-            <td class="px-6 py-4 whitespace-nowrap">Data Analytics</td>
-            <td class="px-6 py-4 whitespace-nowrap">Dr. Kapoor</td>
-            <td class="px-6 py-4 whitespace-nowrap text-blue-600 font-medium">Submitted</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <!-- Role Toggle -->
+      <div class="mb-6">
+        <label class="text-gray-700 font-medium">Select Role: </label>
+        <select id="roleSelect" class="border p-2 rounded">
+          <option value="student">Student</option>
+          <option value="faculty">Faculty</option>
+        </select>
+      </div>
+
+      <!-- Student Project Submission Form -->
+      <div id="studentSection" class="bg-white rounded-lg shadow p-6 mb-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Submit New Project</h3>
+        <form id="addProjectForm" class="space-y-4">
+          <input type="text" placeholder="Project Name" name="project_name" required class="border p-2 w-full rounded"/>
+          <input type="text" placeholder="Domain" name="domain" required class="border p-2 w-full rounded"/>
+          <input type="text" placeholder="Guide Name" name="guide" class="border p-2 w-full rounded"/>
+          <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Submit</button>
+        </form>
+      </div>
+
+      <!-- Projects Table -->
+      <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-lg font-semibold text-gray-900">Projects List</h3>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project Name</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Domain</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guide</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" id="actionHeader" style="display: none;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="projectTableBody" class="bg-white divide-y divide-gray-200">
+              <!-- Dynamic Content -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
   </div>
-</main>
-  </div>
+
+<script>
+const API_URL = 'http://localhost:5001/projects';
+const roleSelect = document.getElementById('roleSelect');
+const studentSection = document.getElementById('studentSection');
+const actionHeader = document.getElementById('actionHeader');
+const tbody = document.getElementById('projectTableBody');
+
+// Fetch and display projects
+async function fetchProjects() {
+  const res = await fetch(API_URL);
+  const projects = await res.json();
+  tbody.innerHTML = '';
+  projects.forEach(proj => {
+    const statusColor = proj.status === 'Approved' ? 'text-green-600' :
+                        proj.status === 'Pending' ? 'text-yellow-500' : 'text-red-600';
+    let actions = '';
+    if (roleSelect.value === 'faculty' && proj.status === 'Pending') {
+      actions = `
+        <button onclick="approveProject(${proj.id})" class="text-green-500 hover:underline">Approve</button>
+        <button onclick="rejectProject(${proj.id})" class="text-red-500 hover:underline">Reject</button>
+      `;
+    }
+    tbody.innerHTML += `
+      <tr>
+        <td class="px-6 py-4">${proj.project_name}</td>
+        <td class="px-6 py-4">${proj.domain}</td>
+        <td class="px-6 py-4">${proj.guide || 'N/A'}</td>
+        <td class="px-6 py-4 ${statusColor} font-medium">${proj.status}</td>
+        <td class="px-6 py-4">${actions}</td>
+      </tr>
+    `;
+  });
+}
+
+// Add new project
+document.getElementById('addProjectForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData);
+  await fetch(API_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ ...data, student_id: 1 })
+  });
+  e.target.reset();
+  fetchProjects();
+});
+
+// Approve/Reject functions
+async function approveProject(id) {
+  await fetch(`${API_URL}/${id}/approve`, { method: 'PUT' });
+  fetchProjects();
+}
+
+async function rejectProject(id) {
+  await fetch(`${API_URL}/${id}/reject`, { method: 'PUT' });
+  fetchProjects();
+}
+
+// Role change event
+roleSelect.addEventListener('change', () => {
+  if (roleSelect.value === 'faculty') {
+    studentSection.style.display = 'none';
+    actionHeader.style.display = 'table-cell';
+  } else {
+    studentSection.style.display = 'block';
+    actionHeader.style.display = 'none';
+  }
+  fetchProjects();
+});
+
+// Initial load
+fetchProjects();
+</script>
 </body>
 </html>
